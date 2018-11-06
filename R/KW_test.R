@@ -36,6 +36,8 @@ KW_test<-function(VD,VI1,data,alpha){
     ccl_UMWc=NULL
     ccl_UMWd=NULL
 
+    level_1=NULL
+    level_2=NULL
     for (j in 1:length(combi)){
       level1=combi[[j]][1]
       level2=combi[[j]][2]
@@ -65,6 +67,10 @@ KW_test<-function(VD,VI1,data,alpha){
 
       stat_z[j]=round(z,3)
       p_val_z[j]=round(P,3)
+
+      level_1[j]=level1
+      level_2[j]=level2
+
     }
 
     k=length(table(VI1))
@@ -125,10 +131,10 @@ KW_test<-function(VD,VI1,data,alpha){
 
          }
 
-    ccl_UMWa=paste0("U=",stat_U,interpretation_UMWa,decision_UMWa)
-    ccl_UMWb=paste0("U=",stat_U,interpretation_UMWb,decision_UMWb)
-    ccl_UMWc=paste0("z=",round(stat_z,3),interpretation_UMWc,decision_UMWc)
-    ccl_UMWd=paste0("z=",round(stat_z,3),interpretation_UMWd,decision_UMWd)
+    ccl_UMWa=paste0(level_1," vs. ",level_2," : U=",stat_U,interpretation_UMWa,decision_UMWa)
+    ccl_UMWb=paste0(level_1," vs. ",level_2," : U=",stat_U,interpretation_UMWb,decision_UMWb)
+    ccl_UMWc=paste0(level_1," vs. ",level_2," : z=",round(stat_z,3),interpretation_UMWc,decision_UMWc)
+    ccl_UMWd=paste0(level_1," vs. ",level_2," : z=",round(stat_z,3),interpretation_UMWd,decision_UMWd)
 
     #invisible(list(U=stat_U,exact_p=p_val_U,Z=stat_z,asympt_p=p_val_z,p_val_U_corr=p_val_U_corr,p_val_z_corr=p_val_z_corr))
     return(list(K_W=ccl,U_alpha_corr=ccl_UMWa,U_p_corr=ccl_UMWb,z_alpha_corr=ccl_UMWc,z_p_corr=ccl_UMWd))
